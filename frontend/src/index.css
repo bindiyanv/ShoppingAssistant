@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+/* `dark:` follows a .dark class on <html> (set by index.html + useTheme). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --animate-fade-in-up: fade-in-up 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-bump: bump 250ms ease-out;
+  --animate-typing: typing 1.2s ease-in-out infinite;
+
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bump {
+    0% { transform: scale(0.6); }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  @keyframes typing {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-4px); opacity: 1; }
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    @apply min-h-dvh bg-gradient-to-br from-slate-50 via-white to-indigo-50/60 text-slate-900 antialiased;
+    @apply dark:from-slate-950 dark:via-slate-950 dark:to-indigo-950/40 dark:text-slate-100;
+  }
+}
+
+/* Hide native scrollbars while keeping the element scrollable. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
